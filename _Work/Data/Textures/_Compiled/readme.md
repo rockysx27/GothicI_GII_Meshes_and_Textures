@@ -1,0 +1,1 @@
+This folder is required even if empty otherwise error on launch when converting textures.
