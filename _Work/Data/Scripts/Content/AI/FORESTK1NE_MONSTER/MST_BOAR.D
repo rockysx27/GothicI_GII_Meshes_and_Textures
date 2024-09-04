@@ -1,0 +1,73 @@
+/*************************************************************************
+**	Wolf Prototype														**
+*************************************************************************/
+
+PROTOTYPE Mst_Boar(C_Npc)			
+{
+	name							=	"Dzik";
+	guild							=	GIL_WOLF;
+	aivar[AIV_MM_REAL_ID]			= 	ID_BOAR;
+	level							=	14;
+//-----------------------------------------------------------
+	attribute	[ATR_STRENGTH]		=	140;
+	attribute	[ATR_DEXTERITY]		=	140;
+	
+	attribute	[ATR_HITPOINTS_MAX]	=	280;
+	attribute	[ATR_HITPOINTS]		=	280;
+
+	attribute	[ATR_MANA_MAX] 		=	0;
+	attribute	[ATR_MANA] 			=	0;
+//-----------------------------------------------------------
+	protection	[PROT_BLUNT]		=	120;
+	protection	[PROT_EDGE]			=	120;
+	protection	[PROT_POINT]		=	60;
+	protection	[PROT_FIRE]			=	40;
+	protection	[PROT_FLY]			=	0;
+	protection	[PROT_MAGIC]		=	0;
+//-----------------------------------------------------------
+	damagetype 						=	DAM_EDGE;
+//	damage		[DAM_INDEX_BLUNT]	=	0;
+//	damage		[DAM_INDEX_EDGE]	=	0;
+//	damage		[DAM_INDEX_POINT]	=	0;
+//	damage		[DAM_INDEX_FIRE]	=	0;
+//	damage		[DAM_INDEX_FLY]		=	0;
+//	damage		[DAM_INDEX_MAGIC]	=	0;
+//-----------------------------------------------------------
+	fight_tactic					=	FAI_WOLF;
+//-----------------------------------------------------------
+	senses						= SENSE_HEAR | SENSE_SEE | SENSE_SMELL;
+	senses_range				= 3000;		// 30m
+
+	aivar[AIV_MM_Behaviour]		= PACKHUNTER;
+	
+	aivar[AIV_MM_PercRange]		= 1500;
+	aivar[AIV_MM_DrohRange]		= 1200;
+	aivar[AIV_MM_AttackRange]	= 500;
+	aivar[AIV_MM_DrohTime]		= 3;
+	aivar[AIV_MM_FollowTime]	= 10;
+	aivar[AIV_MM_FollowInWater] = TRUE;
+//-----------------------------------------------------------
+	start_aistate				= ZS_MM_AllScheduler;
+
+	aivar[AIV_MM_RoamStart] 	= OnlyRoutine;	
+};
+//-----------------------------------------------------------
+func void Set_Boar_Visuals()
+{
+	Mdl_SetVisual			(self,"Keiler.mds");
+	//								Body-Mesh		Body-Tex	Skin-Color	Head-MMS	Head-Tex	Teeth-Tex	ARMOR
+	Mdl_SetVisualBody		(self,	"Keiler_Body",		DEFAULT,	DEFAULT,	"",			DEFAULT,  	DEFAULT,	-1);
+};
+
+
+/*************************************************************************
+**	Wolf    												
+*************************************************************************/
+
+INSTANCE Boar	(Mst_Boar)
+{
+	Set_Boar_Visuals();
+	Npc_SetToFistMode(self);
+	CreateInvItems (self, ItFoMuttonRaw, 2);
+
+};
